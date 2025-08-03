@@ -2,13 +2,14 @@
 const mineflayer = require('mineflayer');
 const tpsPlugin = require('mineflayer-tps')(mineflayer);
 
+
 const utils = require('./util');
 const createCommands = require('./commands');
 const registerEvents = require('./events');
 
 function startup() {
     const PASSWORD = 'Savior';
-    const prefix = '?';
+    const prefix = '*';
 
     const bot = mineflayer.createBot({
         host: 'eu.6b6t.org',
@@ -55,15 +56,15 @@ function startup() {
             "Absolutely", "Not a chance", "Don't count on it", "Looks good", "Sus"
         ],
         spam_messages: [
-            "Want to check who has got more kills? Try -topkills!",
-            "Curious about the bot's health? Use -health!",
-            "Feeling lucky? Roll a dice with -roll!",
-            "Can't decide? Use -choose option1, option2...",
-            "Flip a coin with -flip!",
-            "Need a quick ping test? Try -ping!",
-            "Ask the magic 8-ball your question with -8ball!",
-            "Curious about boob sizes? Try -boobs username!",
-            "Want your own command? Suggest it at discord.gg/mjrDsGCV7F!"
+            "Want to check who has got more kills? Try *topkills!",
+            "Curious about the bot's health? Use *health!",
+            "Feeling lucky? Roll a dice with *roll!",
+            "Can't decide? Use *choose option1, option2...",
+            "Flip a coin with *flip!",
+            "Need a quick ping test? Try *ping!",
+            "Ask the magic 8-ball your question with *8ball!",
+            "Curious about boob sizes? Try *boobs username!",
+            "Want your own command? Suggest it to ryk_cbaool!"
         ],
         blacklisted_messages: [
             '---------------------------',
@@ -78,6 +79,7 @@ function startup() {
         }
     };
 
+    console.log('Prefix: ', prefix);
     // Load commands and assign to state
     const { public_commands, admin_commands } = require('./commands');
     state.public_commands = public_commands;

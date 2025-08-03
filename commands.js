@@ -1,5 +1,8 @@
 const { bot, whitelisted_users, random_element, get_random_ip, get_uptime, crystal_kills, crystalled, deaths, global_deaths, crystal_deaths, quotes, bot_uses, bot_tips_sent, whitelist, sizes, answers, spawnedIn } = require('./util');
-const prefix = "?";
+const prefix = "*";
+
+
+console.log(prefix)
 
 
 const public_commands = {
@@ -28,7 +31,7 @@ const public_commands = {
         bot.chat(`${modeText} Commands - Page ${page}/${totalPages}: ${paginated.join(" ")}`);
     },
 
-    [`${prefix}topkills`]: () => {
+    [`${prefix}topkills`]: (username, message, bot) => {
         const entries = Object.entries(crystal_kills);
         if (entries.length === 0) {
             bot.chat(`Amount of people crystalled since join: ${crystalled}`)
@@ -39,9 +42,17 @@ const public_commands = {
         console.log(crystal_kills)
     },
 
-    [`${prefix}uptime`]: () => bot.chat(`Uptime: ${get_uptime()}`),
-    [`${prefix}deaths`]: () => bot.chat(`Bot ${deaths}, Global: ${global_deaths}`),
-    [`${prefix}health`]: () => bot.chat(`Bot has ${bot.health.toFixed(1)} hearts`),
+    [`${prefix}uptime`]: (username, message, bot) => {
+        bot.chat(`Uptime: ${get_uptime()}`);
+    },
+
+    [`${prefix}deaths`]: (username, message, bot) => {
+        bot.chat(`Bot ${deaths}, Global: ${global_deaths}`);
+    },
+
+    [`${prefix}health`]: (username, message, bot) => {
+        bot.chat(`Bot has ${bot.health.toFixed(1)} hearts`);
+    },
 
     [`${prefix}rape`]: (user, message, bot) => {
         let args = message.split(`${prefix}rape `)[1]
@@ -312,12 +323,12 @@ const public_commands = {
         bot.chat(`[8-ball] ${response}`);
     },
 
-    [`${prefix}roll`]: () => {
+    [`${prefix}roll`]: (username, message, bot) => {
         const rolled = Math.floor(Math.random() * 5) + 1;
         bot.chat(`[Dice] Rolled a ${rolled}`);
     },
 
-    [`${prefix}flip`]: () => {
+    [`${prefix}flip`]: (username, message, bot) => {
         const result = Math.random() < 0.5 ? "Heads" : "Tails";
         bot.chat(`[CoinFlip] It's ${result}`);
     },
@@ -331,7 +342,7 @@ const public_commands = {
         bot.chat(`I choose: ${choice}`);
     },
 
-    [`${prefix}playerlist`]: () => {
+    [`${prefix}playerlist`]: (username, message, bot) => {
         const players = Object.keys(bot.players);
         if (players.length === 0) {
             bot.chat("No players online.");
@@ -340,12 +351,12 @@ const public_commands = {
         }
     },
 
-    [`${prefix}tps`]: () => {
+    [`${prefix}tps`]: (username, message, bot) => {
         const tps = bot.getTps()
         bot.chat(`Server TPS: ${tps}`);
     },
 
-    [`${prefix}ping`]: () => {
+    [`${prefix}ping`]: (username, message, bot) => {
         if (bot.player && typeof bot.player.ping === "number") {
             bot.chat(`Ping: ${bot.player.ping}ms`);
         } else {
@@ -402,7 +413,7 @@ const public_commands = {
         }
     },
 
-    [`${prefix}stats`]: () => {
+    [`${prefix}stats`]: (username, message, bot) => {
         bot.chat(`Bot uses: ${bot_uses}, Bot tips sent: ${bot_tips_sent}. Thank you for using my bot :3`)
     }
 }
@@ -450,18 +461,18 @@ const admin_commands = {
 
     [`${prefix}say`]: (user, message, bot) => {
         const message_to_run = message.split(`${prefix}say `)[1];
-        bot.chat(` ${message_to_run}`) // space at start doesn't let any commands to run
+        bot.chat(`${message_to_run}`) // space at start doesn't let any commands to run
     },
 
-    [`${prefix}tempwl`]: (user, message, bot) => {
-        let args = message.split(`${prefix}tempwl `)[1];
+    [`${prefix}authadd`]: (user, message, bot) => {
+        let args = message.split(`${prefix}authadd `)[1];
         whitelist.push(String(args))
         console.log(`Whitelisted ${args}.`)
         bot.chat(`/msg ${user} Whitelisted ${args}.`)
     },
 
-    [`${prefix}remwl`]: (user, message, bot) => {
-        let args = message.split(`${prefix}remwl `)[1];
+    [`${prefix}authremove`]: (user, message, bot) => {
+        let args = message.split(`${prefix}authremove `)[1];
         if (args.toLowerCase() !== 'damix2131') {
             if (!whitelist.includes(args)) {
                 bot.whisper(user, `${args} is not in the whitelist.`);

@@ -11,6 +11,7 @@
   "type": "commonjs",
   "description": "",
   "dependencies": {
-    "mineflayer": "^4.31.0"
+    "mineflayer": "^4.31.0",
+    "mineflayer-tps": "^1.0.1"
   }
 }
